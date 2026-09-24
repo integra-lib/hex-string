@@ -2,7 +2,7 @@
 
 #include <array>
 #include <cstdint>
-#include <integra/hex_string.hpp>
+#include <hwlib/utilities/hex_string.hpp>
 #include <span>
 #include <string>
 #include <string_view>
@@ -11,10 +11,10 @@
 namespace
 {
 
-using integra::BytesToHex;
-using integra::BytesToHexReversed;
-using integra::HexCharCount;
-using integra::HexToBytes;
+using hwlib::utilities::BytesToHex;
+using hwlib::utilities::BytesToHexReversed;
+using hwlib::utilities::HexCharCount;
+using hwlib::utilities::HexToBytes;
 
 [[nodiscard]] std::string Formatted(std::span<const std::uint8_t> bytes)
 {

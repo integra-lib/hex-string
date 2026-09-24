@@ -2,23 +2,23 @@
 
 Hex text to bytes and back, into a buffer you own — no allocation, no exceptions, all `constexpr`.
 
-Part of [integra-lib](https://github.com/integra-lib) — architecture-independent C++20
+Part of [hwlib](https://github.com/integra-lib) — architecture-independent C++20
 components shared between firmware projects. Header-only,
 no exceptions, no RTTI.
 
 ## Use it
 
 ```bash
-git submodule add git@github.com:integra-lib/hex-string.git external/integra/hex-string
+git submodule add git@github.com:integra-lib/hex-string.git external/hwlib/hex-string
 ```
 
 ```cmake
-add_subdirectory(external/integra/hex-string)
-target_link_libraries(app PRIVATE Integra::hex_string)
+add_subdirectory(external/hwlib/hex-string)
+target_link_libraries(app PRIVATE Hwlib::hex_string)
 ```
 
 ```cpp
-#include <integra/hex_string.hpp>
+#include <hwlib/utilities/hex_string.hpp>
 ```
 
 Each component carries its own include directory, so this header stays unreachable
@@ -30,11 +30,11 @@ a build that happens to work.
 ```cpp
 // Sized with HexCharCount() plus one and value-initialised, so what was written is
 // also a C string — no separate terminator step, and nothing to dangle in a log call.
-std::array<char, integra::HexCharCount(sizeof(mac)) + 1U> text{};
+std::array<char, hwlib::utilities::HexCharCount(sizeof(mac)) + 1U> text{};
 
 // A MAC comes off the radio least significant byte first, the reverse of how it is
 // written down, which is what BytesToHexReversed is for.
-if (integra::BytesToHexReversed(mac, text).has_value())
+if (hwlib::utilities::BytesToHexReversed(mac, text).has_value())
 {
     LOG_INF("peer %s", text.data());
 }
@@ -48,7 +48,7 @@ if the buffer is too small.
 
 ```cpp
 std::array<std::uint8_t, 6> mac{};
-const auto count = integra::HexToBytes(text, mac);
+const auto count = hwlib::utilities::HexToBytes(text, mac);
 if (!count.has_value())
 {
     return Reject();   // odd length, a character that is not a hex digit, or too long
@@ -95,9 +95,9 @@ Every component is released on its own, tagged `vX.Y.Z`. Pre-1.0, a minor releas
 break the API, which is why dependants accept a single minor.
 
 ```bash
-git -C external/integra/hex-string fetch --tags
-git -C external/integra/hex-string checkout v0.2.0
-git add external/integra/hex-string && git commit -m "build: bump hex-string to v0.2.0"
+git -C external/hwlib/hex-string fetch --tags
+git -C external/hwlib/hex-string checkout v0.2.0
+git add external/hwlib/hex-string && git commit -m "build: bump hex-string to v0.2.0"
 ```
 
 ## In a consumer's CI

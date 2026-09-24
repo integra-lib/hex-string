@@ -6,7 +6,7 @@
 #include <span>
 #include <string_view>
 
-namespace integra
+namespace hwlib::utilities
 {
 
 /// Two hex characters per byte, everywhere below.
@@ -130,4 +130,4 @@ constexpr char NibbleToHex(std::uint8_t nibble) noexcept
     return written;
 }
 
-} // namespace integra
+} // namespace hwlib::utilities

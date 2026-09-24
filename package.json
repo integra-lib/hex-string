@@ -1,5 +1,5 @@
 {
-  "name": "integra-hex-string",
+  "name": "hwlib-hex-string",
   "private": true,
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
